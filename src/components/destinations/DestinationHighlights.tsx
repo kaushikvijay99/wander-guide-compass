@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Restaurant, Map, Calendar, ShoppingCart, Star } from 'lucide-react';
+import { Utensils, MapPin, Calendar, ShoppingCart, Star } from 'lucide-react';
 import CuisineCard from './CuisineCard';
 import ProductCard from './ProductCard';
 import ActivityCard from './ActivityCard';
@@ -119,7 +119,7 @@ const DestinationHighlights = () => {
           <div className="flex justify-center mb-8">
             <TabsList className="grid grid-cols-3 w-full max-w-lg">
               <TabsTrigger value="cuisine" className="flex items-center">
-                <Restaurant className="mr-2 h-4 w-4" />
+                <Utensils className="mr-2 h-4 w-4" />
                 <span>Cuisine</span>
               </TabsTrigger>
               <TabsTrigger value="products" className="flex items-center">
@@ -161,7 +161,7 @@ const DestinationHighlights = () => {
         <div className="flex justify-center mt-8">
           <Button>
             See all {activeTab}
-            <Map className="ml-2 h-4 w-4" />
+            <MapPin className="ml-2 h-4 w-4" />
           </Button>
         </div>
       </div>
