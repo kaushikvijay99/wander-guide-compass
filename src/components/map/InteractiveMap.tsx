@@ -1,8 +1,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
-import { Tooltip } from '@/components/ui/tooltip';
-import { TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { GoogleMap, useJsApiLoader, Marker, DirectionsRenderer } from '@react-google-maps/api';
 import { Map, MapPin, MapPinCheck, Route, Plus, Minus, Navigation } from 'lucide-react';
 import { toast } from 'sonner';
@@ -17,10 +16,19 @@ const containerStyle = {
 // Google Maps API key - replace with your actual API key
 const GOOGLE_MAPS_API_KEY = "YOUR_GOOGLE_MAPS_API_KEY"; // Replace with your Google Maps API key
 
+// Define the location interface
+interface Location {
+  id: number;
+  name: string;
+  type: string;
+  lat: number;
+  lng: number;
+}
+
 const InteractiveMap = () => {
   const [mapCenter, setMapCenter] = useState({ lat: 40.7128, lng: -74.006 });
   const [zoom, setZoom] = useState(13);
-  const [selectedLocations, setSelectedLocations] = useState<any[]>([]);
+  const [selectedLocations, setSelectedLocations] = useState<Location[]>([]);
   const [showRoutePanel, setShowRoutePanel] = useState(false);
   const [directions, setDirections] = useState<google.maps.DirectionsResult | null>(null);
   const [currentLocation, setCurrentLocation] = useState<{ lat: number, lng: number } | null>(null);
@@ -34,7 +42,7 @@ const InteractiveMap = () => {
   });
 
   // Sample locations data - in a real app this would come from an API
-  const pointsOfInterest = [
+  const pointsOfInterest: Location[] = [
     { id: 1, name: "Central Park", type: "attraction", lat: 40.7812, lng: -73.9665 },
     { id: 2, name: "Times Square", type: "attraction", lat: 40.7580, lng: -73.9855 },
     { id: 3, name: "Empire State Building", type: "landmark", lat: 40.7484, lng: -73.9857 },
@@ -71,7 +79,7 @@ const InteractiveMap = () => {
   const handleZoomOut = () => setZoom(Math.max(zoom - 1, 5));
   
   // Location selection
-  const toggleLocationSelection = (location: any) => {
+  const toggleLocationSelection = (location: Location) => {
     if (selectedLocations.find(loc => loc.id === location.id)) {
       setSelectedLocations(selectedLocations.filter(loc => loc.id !== location.id));
       // Clear directions when removing a location
